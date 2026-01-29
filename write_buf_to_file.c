@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <types.h>
+#include <sys/types.h>
+#include <fcntl.h>
 
 int main(int argc, char *argv[]) {
     int fd,bytes=8192;
@@ -13,9 +14,7 @@ int main(int argc, char *argv[]) {
             /*char is single quote, string is double quote*/
             *ref='N';
     }
-    fd=open("mybuff.dat",O_CREAT);
-    write(fd,ptr);
-    printf("Hit <return> to exit\n");
-    getchar();
     printf("\n");
+    fd=open("mybuff.dat",O_RDWR|O_CREAT,S_IRWXU);
+    write(fd,ptr,bytes);
 }
